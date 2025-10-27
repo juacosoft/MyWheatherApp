@@ -1,7 +1,17 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
+}
+
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(FileInputStream(localPropertiesFile))
 }
 
 android {
@@ -16,6 +26,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "WEATHER_API_KEY", localProperties.getProperty("weather_api", "\"\""))
     }
 
     buildTypes {
@@ -35,6 +46,7 @@ android {
         jvmTarget = "11"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
 }
@@ -61,6 +73,15 @@ dependencies {
     implementation(libs.voyager.screenModel)
     implementation(libs.voyager.tab.navigator)
     implementation(libs.voyager.transitions)
+
+    // ktor-client
+    implementation(libs.ktor.core)
+    implementation(libs.ktor.android)
+    implementation(libs.ktor.contentnegociation)
+    implementation(libs.ktor.loggin)
+    implementation(libs.ktor.serialization)
+    implementation(libs.loggin.client)
+
 
     testImplementation(libs.junit)
     testImplementation(libs.koin.test)
