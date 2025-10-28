@@ -43,10 +43,12 @@ class HomeScreen: Screen {
                 )
             }
         ) { paddingValues ->
-            Column(
-                modifier = Modifier.padding(paddingValues)
-            ) {
-                Navigator(WeatherDataScreen(state.geoData))
+            if (!state.loadingGeo){
+                Column(
+                    modifier = Modifier.padding(paddingValues)
+                ) {
+                    Navigator(WeatherDataScreen(state.geoData))
+                }
             }
         }
     }
