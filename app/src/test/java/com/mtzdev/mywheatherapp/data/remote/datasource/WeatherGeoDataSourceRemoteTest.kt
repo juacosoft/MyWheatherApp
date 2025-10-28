@@ -1,7 +1,8 @@
-package com.mtzdev.mywheatherapp.data.remote
+package com.mtzdev.mywheatherapp.data.remote.datasource
 
 import com.mtzdev.mywheatherapp.data.model.response.WeatherGeoModel
 import com.mtzdev.mywheatherapp.data.model.response.WeatherGeoResponse
+import com.mtzdev.mywheatherapp.data.remote.WeatherGeoDataSourceRemote
 import com.mtzdev.mywheatherapp.data.services.WeatherGeoService
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -29,7 +30,7 @@ class WeatherGeoDataSourceRemoteTest {
     @Test
     fun `WHEN getGeoData is called THEN result Success`() = runTest {
         val city = "London"
-        coEvery { weatherGeoService.getGeoData(city) } returns mockk<WeatherGeoModel>(relaxed = true)
+        coEvery { weatherGeoService.getGeoData(city) } returns listOf(mockk<WeatherGeoModel>(relaxed = true))
 
         val result = weatherGeoDataSourceRemote.getCurrentWeather(city)
 
