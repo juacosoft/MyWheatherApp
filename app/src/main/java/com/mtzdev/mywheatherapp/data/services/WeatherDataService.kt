@@ -17,6 +17,8 @@ class WeatherDataService(
         const val WEATHER_ENDPOINT = "/data/2.5/weather"
         const val WEATHER_PARAM_LAT = "lat"
         const val WEATHER_PARAM_LON = "lon"
+        const val WEATHER_PARAM_UNITS = "units"
+        const val WEATHER_PARAM_METRIC = "metric"
     }
 
     suspend fun getWeatherData(params: WeatherDataParams): WeatherDataModel {
@@ -24,6 +26,7 @@ class WeatherDataService(
             parameter(APP_ID_PARAM, apiKey)
             parameter(WEATHER_PARAM_LAT, params.lat)
             parameter(WEATHER_PARAM_LON, params.lon)
+            parameter(WEATHER_PARAM_UNITS, WEATHER_PARAM_METRIC)
         }.body()
     }
 }

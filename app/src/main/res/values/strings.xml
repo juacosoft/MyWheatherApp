@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">My Wheather App</string>
+    <string name="weather_loading_label">Loading...</string>
 </resources>
