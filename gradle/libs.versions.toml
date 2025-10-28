@@ -29,6 +29,8 @@ androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-te
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 mockito-kt = { module = "io.mockk:mockk", version = "1.14.6" }
 coroutine-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version = "1.10.2" }
+turbine-test = { module = "app.cash.turbine:turbine", version = "1.2.1" }
+
 #Koin
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core" }

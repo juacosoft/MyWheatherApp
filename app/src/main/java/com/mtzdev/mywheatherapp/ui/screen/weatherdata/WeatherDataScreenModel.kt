@@ -6,11 +6,16 @@ import com.mtzdev.mywheatherapp.commons.WeatherUnknowGeoDataException
 import com.mtzdev.mywheatherapp.domain.WeatherDataResult
 import com.mtzdev.mywheatherapp.domain.usecase.GetWeatherDataUseCase
 import kotlinx.coroutines.launch
+import org.jetbrains.annotations.VisibleForTesting
 
 class WeatherDataScreenModel(
     private val getWeatherDataUseCase: GetWeatherDataUseCase
 ): MVIBaseScreenMode<WeatherDataContract.State, WeatherDataContract.Event, WeatherDataContract.Effect>(WeatherDataContract.State()){
 
+    @VisibleForTesting
+    fun initialStateForTesting(state: WeatherDataContract.State) {
+        mutableState.value = state
+    }
 
     private fun syncWeatherData() = screenModelScope.launch  {
         mutableState.value.currentGeoData?.let { secureGeo ->
