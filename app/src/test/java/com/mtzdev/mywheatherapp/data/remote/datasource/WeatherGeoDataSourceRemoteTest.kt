@@ -3,7 +3,7 @@ package com.mtzdev.mywheatherapp.data.remote.datasource
 import com.mtzdev.mywheatherapp.data.model.response.WeatherGeoModel
 import com.mtzdev.mywheatherapp.data.model.response.WeatherGeoResponse
 import com.mtzdev.mywheatherapp.data.remote.WeatherGeoDataSourceRemote
-import com.mtzdev.mywheatherapp.data.services.WeatherGeoService
+import com.mtzdev.mywheatherapp.data.services.WeatherDataService
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.InjectMockKs
@@ -16,7 +16,8 @@ import org.junit.Test
 class WeatherGeoDataSourceRemoteTest {
 
     @MockK
-    private lateinit var weatherGeoService: WeatherGeoService
+    private lateinit var weatherGeoService: WeatherDataService
+
 
     @InjectMockKs
     private lateinit var weatherGeoDataSourceRemote: WeatherGeoDataSourceRemote

@@ -2,10 +2,10 @@ package com.mtzdev.mywheatherapp.data.remote
 
 import com.mtzdev.mywheatherapp.data.WeatherGeoDataSource
 import com.mtzdev.mywheatherapp.data.model.response.WeatherGeoResponse
-import com.mtzdev.mywheatherapp.data.services.WeatherGeoService
+import com.mtzdev.mywheatherapp.data.services.WeatherDataService
 
 class WeatherGeoDataSourceRemote(
-    private val weatherGeoService: WeatherGeoService
+    private val weatherGeoService: WeatherDataService
 ): WeatherGeoDataSource {
 
     override suspend fun getCurrentWeather(

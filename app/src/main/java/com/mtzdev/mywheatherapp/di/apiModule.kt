@@ -3,8 +3,6 @@ package com.mtzdev.mywheatherapp.di
 import com.mtzdev.mywheatherapp.BuildConfig
 import com.mtzdev.mywheatherapp.commons.WEATHER_API_KEY
 import com.mtzdev.mywheatherapp.commons.WEATHER_BASE_URL
-import com.mtzdev.mywheatherapp.commons.WEATHER_GEOLOACTION_CLIENT
-import com.mtzdev.mywheatherapp.commons.WEATHER_GEOLOACTION_URL
 import com.mtzdev.mywheatherapp.commons.WEATHER_HTTP_CLIENT
 import com.mtzdev.mywheatherapp.commons.defaultConfing
 import io.ktor.client.HttpClient
@@ -26,16 +24,6 @@ val apiModule = module {
             defaultConfing()
             defaultRequest {
                 url(WEATHER_BASE_URL)
-                header(HttpHeaders.ContentType, ContentType.Application.Json)
-            }
-        }
-    }
-
-    single(named(WEATHER_GEOLOACTION_CLIENT)) {
-        HttpClient(Android) {
-            defaultConfing()
-            defaultRequest {
-                url(WEATHER_GEOLOACTION_URL)
                 header(HttpHeaders.ContentType, ContentType.Application.Json)
             }
         }
