@@ -44,10 +44,10 @@ This document defines all implementation tasks for the GPS-based weather feature
 
 ### Configuration Tasks
 
-- [ ] T001 [P] Add Google Play Services Location dependency to `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/gradle/libs.versions.toml` (version: 21.3.0)
-- [ ] T002 [P] Add Accompanist Permissions dependency to `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/gradle/libs.versions.toml` (version: 0.36.0)
-- [ ] T003 [P] Add dependencies to `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/build.gradle.kts` (implementation libs.play.services.location and libs.accompanist.permissions)
-- [ ] T004 Add location permissions to `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/AndroidManifest.xml` (ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION, GPS feature)
+- [x] T001 [P] Add Google Play Services Location dependency to `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/gradle/libs.versions.toml` (version: 21.3.0)
+- [x] T002 [P] Add Accompanist Permissions dependency to `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/gradle/libs.versions.toml` (version: 0.36.0)
+- [x] T003 [P] Add dependencies to `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/build.gradle.kts` (implementation libs.play.services.location and libs.accompanist.permissions)
+- [x] T004 Add location permissions to `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/AndroidManifest.xml` (ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION, GPS feature)
 
 **Verification**:
 ```bash
@@ -67,31 +67,31 @@ This document defines all implementation tasks for the GPS-based weather feature
 
 ### Domain Models
 
-- [ ] T005 [P] Create Result sealed class at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/domain/model/Result.kt` (Loading, Success<T>, Error with DomainError)
-- [ ] T006 [P] Create DomainError sealed class at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/domain/model/DomainError.kt` (LocationError, WeatherError, ValidationError hierarchies)
-- [ ] T007 [P] Create Location data class at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/domain/model/Location.kt` (latitude, longitude, name, country with validation)
-- [ ] T008 [P] Create WeatherCondition data class at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/domain/model/WeatherCondition.kt` (id, main, description, icon with getIconUrl)
-- [ ] T009 [P] Create Weather data class at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/domain/model/Weather.kt` (temperature, feelsLike, humidity, pressure, wind, condition, location, timestamp)
+- [x] T005 [P] Create Result sealed class at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/domain/model/Result.kt` (Loading, Success<T>, Error with DomainError)
+- [x] T006 [P] Create DomainError sealed class at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/domain/model/DomainError.kt` (LocationError, WeatherError, ValidationError hierarchies)
+- [x] T007 [P] Create Location data class at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/domain/model/Location.kt` (latitude, longitude, name, country with validation)
+- [x] T008 [P] Create WeatherCondition data class at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/domain/model/WeatherCondition.kt` (id, main, description, icon with getIconUrl)
+- [x] T009 [P] Create Weather data class at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/domain/model/Weather.kt` (temperature, feelsLike, humidity, pressure, wind, condition, location, timestamp)
 
 ### Repository Interfaces
 
-- [ ] T010 [P] Create WeatherRepository interface at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/domain/repository/WeatherRepository.kt` (getCurrentWeatherByCoordinates suspend fun)
-- [ ] T011 [P] Create LocationRepository interface at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/domain/repository/LocationRepository.kt` (searchLocation suspend fun)
+- [x] T010 [P] Create WeatherRepository interface at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/domain/repository/WeatherRepository.kt` (getCurrentWeatherByCoordinates suspend fun)
+- [x] T011 [P] Create LocationRepository interface at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/domain/repository/LocationRepository.kt` (searchLocation suspend fun)
 
 ### DTOs
 
-- [ ] T012 [P] Create WeatherResponseDto at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/remote/dto/WeatherResponseDto.kt` (@Serializable with SerialName annotations)
-- [ ] T013 [P] Create WeatherConditionDto at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/remote/dto/WeatherConditionDto.kt` (@Serializable)
-- [ ] T014 [P] Create MainDto at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/remote/dto/MainDto.kt` (@Serializable with temp, feelsLike, humidity, pressure)
-- [ ] T015 [P] Create WindDto at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/remote/dto/WindDto.kt` (@Serializable with speed, deg nullable)
-- [ ] T016 [P] Create SysDto at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/remote/dto/SysDto.kt` (@Serializable with country)
-- [ ] T017 [P] Create CoordinatesDto at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/remote/dto/CoordinatesDto.kt` (@Serializable)
-- [ ] T018 [P] Create GeocodingResponseDto at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/remote/dto/GeocodingResponseDto.kt` (@Serializable with name, lat, lon, country)
+- [x] T012 [P] Create WeatherResponseDto at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/remote/dto/WeatherResponseDto.kt` (@Serializable with SerialName annotations)
+- [x] T013 [P] Create WeatherConditionDto at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/remote/dto/WeatherConditionDto.kt` (@Serializable)
+- [x] T014 [P] Create MainDto at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/remote/dto/MainDto.kt` (@Serializable with temp, feelsLike, humidity, pressure)
+- [x] T015 [P] Create WindDto at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/remote/dto/WindDto.kt` (@Serializable with speed, deg nullable)
+- [x] T016 [P] Create SysDto at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/remote/dto/SysDto.kt` (@Serializable with country)
+- [x] T017 [P] Create CoordinatesDto at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/remote/dto/CoordinatesDto.kt` (@Serializable)
+- [x] T018 [P] Create GeocodingResponseDto at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/remote/dto/GeocodingResponseDto.kt` (@Serializable with name, lat, lon, country)
 
 ### Koin Modules Structure
 
-- [ ] T019 Create WeatherModule skeleton at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/di/WeatherModule.kt` (module declaration, will be populated in Phase 9)
-- [ ] T020 Register weatherModule in `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/di/AppModule.kt` (add to includes list)
+- [x] T019 Create WeatherModule skeleton at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/di/WeatherModule.kt` (module declaration, will be populated in Phase 9)
+- [x] T020 Register weatherModule in `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/di/AppModule.kt` (add to includes list)
 
 **Parallel Execution**: T005-T018 can run in parallel (different files)
 
@@ -109,14 +109,14 @@ This document defines all implementation tasks for the GPS-based weather feature
 
 ### Permission Handling
 
-- [ ] T021 [RF-001] Create PermissionHandler composable at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/ui/weather/components/PermissionHandler.kt` (with rememberMultiplePermissionsState)
-- [ ] T022 [RF-001] Add permission rationale dialog to PermissionHandler (AlertDialog with explanation)
-- [ ] T023 [RF-002] Add permission state management in PermissionHandler (LaunchedEffect for status changes)
-- [ ] T024 [RF-002] Add permanently denied handler in PermissionHandler (navigate to settings logic)
+- [x] T021 [RF-001] Create PermissionHandler composable at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/ui/weather/components/PermissionHandler.kt` (with rememberMultiplePermissionsState)
+- [x] T022 [RF-001] Add permission rationale dialog to PermissionHandler (AlertDialog with explanation)
+- [x] T023 [RF-002] Add permission state management in PermissionHandler (LaunchedEffect for status changes)
+- [x] T024 [RF-002] Add permanently denied handler in PermissionHandler (navigate to settings logic)
 
 ### Tests
 
-- [ ] T025 [P] TESTS: Create PermissionHandlerTest at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/test/java/com/mtzdev/mywheatherapp/ui/weather/components/PermissionHandlerTest.kt` (Given-When-Then structure, test all permission states)
+- [x] T025 [P] TESTS: Create PermissionHandlerTest at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/test/java/com/mtzdev/mywheatherapp/ui/weather/components/PermissionHandlerTest.kt` (Given-When-Then structure, test all permission states)
 
 **Acceptance Criteria**:
 - Permission dialog shows on first request
