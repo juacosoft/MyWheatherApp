@@ -138,45 +138,45 @@ This document defines all implementation tasks for the GPS-based weather feature
 
 ### Location Provider
 
-- [ ] T026 [RF-003] Create LocationProvider at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/location/LocationProvider.kt` (FusedLocationProviderClient with 10s timeout)
-- [ ] T027 [RF-003] Add LocationException class in LocationProvider.kt (custom exception for location errors)
-- [ ] T028 [RF-003] Implement getCurrentLocation suspend function (with cancellationTokenSource and coroutine support)
+- [x] T026 [RF-003] Create LocationProvider at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/location/LocationProvider.kt` (FusedLocationProviderClient with 10s timeout)
+- [x] T027 [RF-003] Add LocationException class in LocationProvider.kt (custom exception for location errors)
+- [x] T028 [RF-003] Implement getCurrentLocation suspend function (with cancellationTokenSource and coroutine support)
 
 ### Use Cases
 
-- [ ] T029 [RF-003] Create GetCurrentLocationUseCase at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/domain/usecase/GetCurrentLocationUseCase.kt` (operator invoke with Result wrapper)
-- [ ] T030 [RF-003] Create GetCurrentWeatherByCoordinatesUseCase at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/domain/usecase/GetCurrentWeatherByCoordinatesUseCase.kt` (validate coordinates, delegate to repository)
+- [x] T029 [RF-003] Create GetCurrentLocationUseCase at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/domain/usecase/GetCurrentLocationUseCase.kt` (operator invoke with Result wrapper)
+- [x] T030 [RF-003] Create GetCurrentWeatherByCoordinatesUseCase at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/domain/usecase/GetCurrentWeatherByCoordinatesUseCase.kt` (validate coordinates, delegate to repository)
 
 ### Remote Data Source
 
-- [ ] T031 [RF-003] Create WeatherRemoteDataSource at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/remote/datasource/WeatherRemoteDataSource.kt` (Ktor client injection, getCurrentWeather method)
-- [ ] T032 [RF-003] Configure OpenWeatherMap API endpoint in WeatherRemoteDataSource (https://api.openweathermap.org/data/2.5/weather with params: lat, lon, appid, units=metric, lang=es)
+- [x] T031 [RF-003] Create WeatherRemoteDataSource at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/remote/datasource/WeatherRemoteDataSource.kt` (Ktor client injection, getCurrentWeather method)
+- [x] T032 [RF-003] Configure OpenWeatherMap API endpoint in WeatherRemoteDataSource (https://api.openweathermap.org/data/2.5/weather with params: lat, lon, appid, units=metric, lang=es)
 
 ### Repository Implementation
 
-- [ ] T033 [RF-003] Create WeatherRepositoryImpl at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/repository/WeatherRepositoryImpl.kt` (implement WeatherRepository interface)
-- [ ] T034 [RF-003] Add coordinate validation in WeatherRepositoryImpl (lat: -90 to 90, lon: -180 to 180)
-- [ ] T035 [RF-003] Add error mapping in WeatherRepositoryImpl (UnknownHostException, ClientRequestException, ServerResponseException to DomainError)
-- [ ] T036 [RF-003] Add Dispatchers.IO context in WeatherRepositoryImpl (withContext for network calls)
+- [x] T033 [RF-003] Create WeatherRepositoryImpl at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/repository/WeatherRepositoryImpl.kt` (implement WeatherRepository interface)
+- [x] T034 [RF-003] Add coordinate validation in WeatherRepositoryImpl (lat: -90 to 90, lon: -180 to 180)
+- [x] T035 [RF-003] Add error mapping in WeatherRepositoryImpl (UnknownHostException, ClientRequestException, ServerResponseException to DomainError)
+- [x] T036 [RF-003] Add Dispatchers.IO context in WeatherRepositoryImpl (withContext for network calls)
 
 ### Mappers
 
-- [ ] T037 [P] [RF-003] Create WeatherMapper at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/mapper/WeatherMapper.kt` (mapToDomain for WeatherResponseDto to Weather)
-- [ ] T038 [P] [RF-003] Add null handling in WeatherMapper (require weather list not empty, handle nullable fields)
-- [ ] T039 [P] [RF-003] Add helper mappers for nested objects (mapLocation, mapWeatherCondition private functions)
+- [x] T037 [P] [RF-003] Create WeatherMapper at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/mapper/WeatherMapper.kt` (mapToDomain for WeatherResponseDto to Weather)
+- [x] T038 [P] [RF-003] Add null handling in WeatherMapper (require weather list not empty, handle nullable fields)
+- [x] T039 [P] [RF-003] Add helper mappers for nested objects (mapLocation, mapWeatherCondition private functions)
 
 ### Tests
 
-- [ ] T040 [P] TESTS: Create WeatherRepositoryImplTest at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/test/java/com/mtzdev/mywheatherapp/data/repository/WeatherRepositoryImplTest.kt` (Given: mock data source, When: call method, Then: assert Result)
-- [ ] T041 [P] TESTS: Test success scenario in WeatherRepositoryImplTest (API returns valid data, mapper converts, returns Success)
-- [ ] T042 [P] TESTS: Test network error in WeatherRepositoryImplTest (UnknownHostException thrown, returns Error with NoInternetConnection)
-- [ ] T043 [P] TESTS: Test invalid coordinates in WeatherRepositoryImplTest (lat > 90, returns Error with ValidationError)
-- [ ] T044 [P] TESTS: Create GetCurrentWeatherByCoordinatesUseCaseTest at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/test/java/com/mtzdev/mywheatherapp/domain/usecase/GetCurrentWeatherByCoordinatesUseCaseTest.kt`
-- [ ] T045 [P] TESTS: Test use case delegates to repository correctly
-- [ ] T046 [P] TESTS: Test use case validates coordinates before repository call
-- [ ] T047 [P] TESTS: Create WeatherMapperTest at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/test/java/com/mtzdev/mywheatherapp/data/mapper/WeatherMapperTest.kt`
-- [ ] T048 [P] TESTS: Test valid DTO maps to domain correctly in WeatherMapperTest
-- [ ] T049 [P] TESTS: Test empty weather list throws exception in WeatherMapperTest
+- [x] T040 [P] TESTS: Create WeatherRepositoryImplTest at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/test/java/com/mtzdev/mywheatherapp/data/repository/WeatherRepositoryImplTest.kt` (Given: mock data source, When: call method, Then: assert Result)
+- [x] T041 [P] TESTS: Test success scenario in WeatherRepositoryImplTest (API returns valid data, mapper converts, returns Success)
+- [x] T042 [P] TESTS: Test network error in WeatherRepositoryImplTest (UnknownHostException thrown, returns Error with NoInternetConnection)
+- [x] T043 [P] TESTS: Test invalid coordinates in WeatherRepositoryImplTest (lat > 90, returns Error with ValidationError)
+- [x] T044 [P] TESTS: Create GetCurrentWeatherByCoordinatesUseCaseTest at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/test/java/com/mtzdev/mywheatherapp/domain/usecase/GetCurrentWeatherByCoordinatesUseCaseTest.kt`
+- [x] T045 [P] TESTS: Test use case delegates to repository correctly
+- [x] T046 [P] TESTS: Test use case validates coordinates before repository call
+- [x] T047 [P] TESTS: Create WeatherMapperTest at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/test/java/com/mtzdev/mywheatherapp/data/mapper/WeatherMapperTest.kt`
+- [x] T048 [P] TESTS: Test valid DTO maps to domain correctly in WeatherMapperTest
+- [x] T049 [P] TESTS: Test empty weather list throws exception in WeatherMapperTest
 
 **Parallel Execution**: T037-T039 (mappers), T040-T049 (tests) can run in parallel
 
@@ -200,36 +200,36 @@ This document defines all implementation tasks for the GPS-based weather feature
 
 ### Geocoding Data Source
 
-- [ ] T050 [RF-004] Create GeocodingRemoteDataSource at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/remote/datasource/GeocodingRemoteDataSource.kt` (Ktor client, searchLocation method)
-- [ ] T051 [RF-004] Configure Geocoding API endpoint (https://api.openweathermap.org/geo/1.0/direct with params: q, appid, limit=1)
+- [x] T050 [RF-004] Create GeocodingRemoteDataSource at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/remote/datasource/GeocodingRemoteDataSource.kt` (Ktor client, searchLocation method)
+- [x] T051 [RF-004] Configure Geocoding API endpoint (https://api.openweathermap.org/geo/1.0/direct with params: q, appid, limit=1)
 
 ### Use Case
 
-- [ ] T052 [RF-004] Create SearchLocationUseCase at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/domain/usecase/SearchLocationUseCase.kt` (validate cityName not blank, operator invoke)
+- [x] T052 [RF-004] Create SearchLocationUseCase at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/domain/usecase/SearchLocationUseCase.kt` (validate cityName not blank, operator invoke)
 
 ### Repository Implementation
 
-- [ ] T053 [RF-004] Create LocationRepositoryImpl at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/repository/LocationRepositoryImpl.kt` (implement LocationRepository interface)
-- [ ] T054 [RF-004] Add empty results handling in LocationRepositoryImpl (if results.isEmpty return CityNotFound error)
-- [ ] T055 [RF-004] Add city name validation in LocationRepositoryImpl (trim, check not blank, max 255 chars)
+- [x] T053 [RF-004] Create LocationRepositoryImpl at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/repository/LocationRepositoryImpl.kt` (implement LocationRepository interface)
+- [x] T054 [RF-004] Add empty results handling in LocationRepositoryImpl (if results.isEmpty return CityNotFound error)
+- [x] T055 [RF-004] Add city name validation in LocationRepositoryImpl (trim, check not blank, max 255 chars)
 
 ### Mapper
 
-- [ ] T056 [P] [RF-004] Create LocationMapper at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/mapper/LocationMapper.kt` (mapToDomain for GeocodingResponseDto to Location)
+- [x] T056 [P] [RF-004] Create LocationMapper at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/data/mapper/LocationMapper.kt` (mapToDomain for GeocodingResponseDto to Location)
 
 ### UI Component
 
-- [ ] T057 [RF-004] Create CitySearchBar composable at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/ui/weather/components/CitySearchBar.kt` (TextField with search icon, debounce)
+- [x] T057 [RF-004] Create CitySearchBar composable at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/ui/weather/components/CitySearchBar.kt` (TextField with search icon, debounce)
 
 ### Tests
 
-- [ ] T058 [P] TESTS: Create LocationRepositoryImplTest at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/test/java/com/mtzdev/mywheatherapp/data/repository/LocationRepositoryImplTest.kt`
-- [ ] T059 [P] TESTS: Test city found scenario in LocationRepositoryImplTest (results not empty, returns Success)
-- [ ] T060 [P] TESTS: Test city not found in LocationRepositoryImplTest (results empty, returns Error CityNotFound)
-- [ ] T061 [P] TESTS: Test blank city name in LocationRepositoryImplTest (returns ValidationError EmptyCityName)
-- [ ] T062 [P] TESTS: Create SearchLocationUseCaseTest at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/test/java/com/mtzdev/mywheatherapp/domain/usecase/SearchLocationUseCaseTest.kt`
-- [ ] T063 [P] TESTS: Test use case validates blank city name
-- [ ] T064 [P] TESTS: Test use case trims whitespace
+- [x] T058 [P] TESTS: Create LocationRepositoryImplTest at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/test/java/com/mtzdev/mywheatherapp/data/repository/LocationRepositoryImplTest.kt`
+- [x] T059 [P] TESTS: Test city found scenario in LocationRepositoryImplTest (results not empty, returns Success)
+- [x] T060 [P] TESTS: Test city not found in LocationRepositoryImplTest (results empty, returns Error CityNotFound)
+- [x] T061 [P] TESTS: Test blank city name in LocationRepositoryImplTest (returns ValidationError EmptyCityName)
+- [x] T062 [P] TESTS: Create SearchLocationUseCaseTest at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/test/java/com/mtzdev/mywheatherapp/domain/usecase/SearchLocationUseCaseTest.kt`
+- [x] T063 [P] TESTS: Test use case validates blank city name
+- [x] T064 [P] TESTS: Test use case trims whitespace
 
 **Acceptance Criteria**:
 - Search accepts city name input
@@ -252,28 +252,28 @@ This document defines all implementation tasks for the GPS-based weather feature
 
 ### MVI Contract
 
-- [ ] T065 [RF-005] Create WeatherContract at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/ui/weather/WeatherContract.kt` (State, Event, Effect sealed interfaces)
-- [ ] T066 [RF-005] Define State in WeatherContract (weather: Weather?, location: Location?, isLoading, error, locationMode, permissionStatus, searchQuery)
-- [ ] T067 [RF-005] Define Event in WeatherContract (RequestAutoDetection, SearchCity, SwitchLocationMode, OnPermissionResult, ShowPermissionSettings, RetryLastAction, ClearError, OnSearchQueryChanged)
-- [ ] T068 [RF-005] Define Effect in WeatherContract (NavigateToSettings, ShowSnackbar, RequestLocationPermission)
-- [ ] T069 [RF-005] Add LocationMode enum in WeatherContract (AUTO, MANUAL)
-- [ ] T070 [RF-005] Add PermissionStatus enum in WeatherContract (UNKNOWN, GRANTED, DENIED, PERMANENTLY_DENIED)
+- [x] T065 [RF-005] Create WeatherContract at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/ui/weather/WeatherContract.kt` (State, Event, Effect sealed interfaces)
+- [x] T066 [RF-005] Define State in WeatherContract (weather: Weather?, location: Location?, isLoading, error, locationMode, permissionStatus, searchQuery)
+- [x] T067 [RF-005] Define Event in WeatherContract (RequestAutoDetection, SearchCity, SwitchLocationMode, OnPermissionResult, ShowPermissionSettings, RetryLastAction, ClearError, OnSearchQueryChanged)
+- [x] T068 [RF-005] Define Effect in WeatherContract (NavigateToSettings, ShowSnackbar, RequestLocationPermission)
+- [x] T069 [RF-005] Add LocationMode enum in WeatherContract (AUTO, MANUAL)
+- [x] T070 [RF-005] Add PermissionStatus enum in WeatherContract (UNKNOWN, GRANTED, DENIED, PERMANENTLY_DENIED)
 
 ### ScreenModel
 
-- [ ] T071 [RF-005] Create WeatherScreenModel at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/ui/weather/WeatherScreenModel.kt` (extend MVIBaseScreenModel)
-- [ ] T072 [RF-005] Implement handleEvent in WeatherScreenModel (when expression for all Event types)
-- [ ] T073 [RF-005] Implement handleAutoDetection in WeatherScreenModel (check permissions, call getCurrentLocationUseCase, then getWeatherByCoordinates)
-- [ ] T074 [RF-005] Implement handleSearchCity in WeatherScreenModel (validate not blank, call searchLocationUseCase, then getWeather)
-- [ ] T075 [RF-005] Implement error handlers in WeatherScreenModel (handleLocationError, handleWeatherError, handleSearchError map DomainError to user messages)
-- [ ] T076 [RF-005] Implement handleRetry in WeatherScreenModel (retry based on current locationMode)
+- [x] T071 [RF-005] Create WeatherScreenModel at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/ui/weather/WeatherScreenModel.kt` (extend MVIBaseScreenModel)
+- [x] T072 [RF-005] Implement handleEvent in WeatherScreenModel (when expression for all Event types)
+- [x] T073 [RF-005] Implement handleAutoDetection in WeatherScreenModel (check permissions, call getCurrentLocationUseCase, then getWeatherByCoordinates)
+- [x] T074 [RF-005] Implement handleSearchCity in WeatherScreenModel (validate not blank, call searchLocationUseCase, then getWeather)
+- [x] T075 [RF-005] Implement error handlers in WeatherScreenModel (handleLocationError, handleWeatherError, handleSearchError map DomainError to user messages)
+- [x] T076 [RF-005] Implement handleRetry in WeatherScreenModel (retry based on current locationMode)
 
 ### UI Components
 
-- [ ] T077 [RF-005] Create WeatherScreen at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/ui/weather/WeatherScreen.kt` (Tab implementation with Voyager)
-- [ ] T078 [RF-005] Create WeatherDisplay composable at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/ui/weather/components/WeatherDisplay.kt` (show temperature, description, icon, humidity, wind)
-- [ ] T079 [RF-005] Create LoadingIndicator composable at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/ui/weather/components/LoadingIndicator.kt` (CircularProgressIndicator with message)
-- [ ] T080 [RF-005] Create ErrorMessage composable at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/ui/weather/components/ErrorMessage.kt` (Card with error icon, message, retry button)
+- [x] T077 [RF-005] Create WeatherScreen at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/ui/weather/WeatherScreen.kt` (Tab implementation with Voyager)
+- [x] T078 [RF-005] Create WeatherDisplay composable at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/ui/weather/components/WeatherDisplay.kt` (show temperature, description, icon, humidity, wind)
+- [x] T079 [RF-005] Create LoadingIndicator composable at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/ui/weather/components/LoadingIndicator.kt` (CircularProgressIndicator with message)
+- [x] T080 [RF-005] Create ErrorMessage composable at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/ui/weather/components/ErrorMessage.kt` (Card with error icon, message, retry button)
 
 **Acceptance Criteria**:
 - Weather displays temperature, description, humidity, wind
@@ -296,9 +296,9 @@ This document defines all implementation tasks for the GPS-based weather feature
 
 ### UI Components
 
-- [ ] T081 [RF-006] Create LocationModeToggle composable at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/ui/weather/components/LocationModeToggle.kt` (RadioButton group or SegmentedButton)
-- [ ] T082 [RF-006] Add mode switching logic in WeatherScreenModel (handleSwitchMode updates state.locationMode)
-- [ ] T083 [RF-006] Integrate LocationModeToggle in WeatherScreen (onModeChange calls setEvent)
+- [x] T081 [RF-006] Create LocationModeToggle composable at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/ui/weather/components/LocationModeToggle.kt` (RadioButton group or SegmentedButton)
+- [x] T082 [RF-006] Add mode switching logic in WeatherScreenModel (handleSwitchMode updates state.locationMode)
+- [x] T083 [RF-006] Integrate LocationModeToggle in WeatherScreen (onModeChange calls setEvent)
 
 **Acceptance Criteria**:
 - Toggle shows AUTO vs MANUAL modes
