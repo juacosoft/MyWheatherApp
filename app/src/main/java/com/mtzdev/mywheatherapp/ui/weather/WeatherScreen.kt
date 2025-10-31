@@ -3,6 +3,12 @@ package com.mtzdev.mywheatherapp.ui.weather
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -134,45 +140,69 @@ class WeatherScreen : Tab {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Search bar (visible in MANUAL mode)
-            if (state.locationMode == WeatherContract.LocationMode.MANUAL) {
-                CitySearchBar(
-                    query = state.searchQuery,
-                    onQueryChange = { query ->
-                        onEvent(WeatherContract.Event.OnSearchQueryChanged(query))
-                    },
-                    onSearch = {
-                        if (state.searchQuery.isNotBlank()) {
-                            onEvent(WeatherContract.Event.SearchCity(state.searchQuery))
+            // T086: Search bar with animated visibility (visible in MANUAL mode)
+            AnimatedVisibility(
+                visible = state.locationMode == WeatherContract.LocationMode.MANUAL,
+                enter = slideInVertically() + fadeIn(),
+                exit = slideOutVertically() + fadeOut()
+            ) {
+                Column {
+                    CitySearchBar(
+                        query = state.searchQuery,
+                        onQueryChange = { query ->
+                            onEvent(WeatherContract.Event.OnSearchQueryChanged(query))
+                        },
+                        onSearch = {
+                            if (state.searchQuery.isNotBlank()) {
+                                onEvent(WeatherContract.Event.SearchCity(state.searchQuery))
+                            }
+                        }
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
+            }
+
+            // T086: Crossfade for state transitions (loading, error, success)
+            Crossfade(
+                targetState = when {
+                    state.isLoading -> "loading"
+                    state.error != null -> "error"
+                    state.weather != null -> "success"
+                    else -> "empty"
+                },
+                label = "weather_state_transition"
+            ) { targetState ->
+                when (targetState) {
+                    "loading" -> {
+                        LoadingIndicator(
+                            message = when (state.locationMode) {
+                                WeatherContract.LocationMode.AUTO -> "Detectando ubicación..."
+                                WeatherContract.LocationMode.MANUAL -> "Buscando ciudad..."
+                            }
+                        )
+                    }
+
+                    "error" -> {
+                        state.error?.let { errorMessage ->
+                            ErrorMessage(
+                                message = errorMessage,
+                                onRetry = {
+                                    onEvent(WeatherContract.Event.RetryLastAction)
+                                }
+                            )
                         }
                     }
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-            }
 
-            // Loading state
-            if (state.isLoading) {
-                LoadingIndicator(
-                    message = when (state.locationMode) {
-                        WeatherContract.LocationMode.AUTO -> "Detectando ubicación..."
-                        WeatherContract.LocationMode.MANUAL -> "Buscando ciudad..."
+                    "success" -> {
+                        state.weather?.let { weather ->
+                            WeatherDisplay(weather = weather)
+                        }
                     }
-                )
-            }
 
-            // Error state
-            if (state.error != null && !state.isLoading) {
-                ErrorMessage(
-                    message = state.error,
-                    onRetry = {
-                        onEvent(WeatherContract.Event.RetryLastAction)
+                    "empty" -> {
+                        // Empty state - show nothing or placeholder
                     }
-                )
-            }
-
-            // Success state - Display weather
-            if (state.weather != null && !state.isLoading && state.error == null) {
-                WeatherDisplay(weather = state.weather)
+                }
             }
         }
     }

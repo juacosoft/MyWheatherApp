@@ -320,9 +320,9 @@ This document defines all implementation tasks for the GPS-based weather feature
 
 ### State Transitions
 
-- [ ] T084 [RF-007] Add loading state management in WeatherScreenModel (set isLoading true before async calls, false after)
-- [ ] T085 [RF-007] Add error state recovery actions in WeatherScreenModel (clearError, retryLastAction)
-- [ ] T086 [RF-007] Add state transition animations in WeatherScreen (AnimatedVisibility, Crossfade for state changes)
+- [x] T084 [RF-007] Add loading state management in WeatherScreenModel (set isLoading true before async calls, false after)
+- [x] T085 [RF-007] Add error state recovery actions in WeatherScreenModel (clearError, retryLastAction)
+- [x] T086 [RF-007] Add state transition animations in WeatherScreen (AnimatedVisibility, Crossfade for state changes)
 
 **Acceptance Criteria**:
 - Loading indicator shows immediately on action
@@ -342,20 +342,20 @@ This document defines all implementation tasks for the GPS-based weather feature
 
 ### Dependency Injection
 
-- [ ] T087 Configure Koin in WeatherModule at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/di/WeatherModule.kt` (single for data sources, repositories, mappers; factory for use cases, ScreenModel)
-- [ ] T088 Add LocationProvider to WeatherModule (single with androidContext)
-- [ ] T089 Add WeatherRemoteDataSource to WeatherModule (single with HttpClient, apiKey from BuildConfig)
-- [ ] T090 Add GeocodingRemoteDataSource to WeatherModule (single)
-- [ ] T091 Add WeatherMapper and LocationMapper to WeatherModule (singleOf)
-- [ ] T092 Add WeatherRepositoryImpl to WeatherModule (singleOf bind WeatherRepository::class)
-- [ ] T093 Add LocationRepositoryImpl to WeatherModule (singleOf bind LocationRepository::class)
-- [ ] T094 Add use cases to WeatherModule (factoryOf for all three use cases)
-- [ ] T095 Add WeatherScreenModel to WeatherModule (factoryOf)
+- [x] T087 Configure Koin in WeatherModule at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/di/WeatherModule.kt` (single for data sources, repositories, mappers; factory for use cases, ScreenModel)
+- [x] T088 Add LocationProvider to WeatherModule (single with androidContext)
+- [x] T089 Add WeatherRemoteDataSource to WeatherModule (single with HttpClient, apiKey from BuildConfig)
+- [x] T090 Add GeocodingRemoteDataSource to WeatherModule (single)
+- [x] T091 Add WeatherMapper and LocationMapper to WeatherModule (singleOf)
+- [x] T092 Add WeatherRepositoryImpl to WeatherModule (singleOf bind WeatherRepository::class)
+- [x] T093 Add LocationRepositoryImpl to WeatherModule (singleOf bind LocationRepository::class)
+- [x] T094 Add use cases to WeatherModule (factoryOf for all three use cases)
+- [x] T095 Add WeatherScreenModel to WeatherModule (factoryOf)
 
 ### Navigation
 
-- [ ] T096 Create WeatherTab at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/ui/weather/navigation/WeatherTab.kt` (implement Voyager Tab interface)
-- [ ] T097 Integrate WeatherTab with bottom navigation (add to TabNavigator if exists, or create)
+- [x] T096 Create WeatherTab at `/Users/joaquinalfonsomartinez/Documents/nisum/MyWheatherApp/app/src/main/java/com/mtzdev/mywheatherapp/ui/weather/navigation/WeatherTab.kt` (implement Voyager Tab interface)
+- [x] T097 Integrate WeatherTab with bottom navigation (add to TabNavigator if exists, or create)
 
 **Verification**:
 ```bash
@@ -375,25 +375,25 @@ This document defines all implementation tasks for the GPS-based weather feature
 
 ### Documentation
 
-- [ ] T098 [P] Add KDoc to all public domain model classes (Weather, Location, WeatherCondition, Result, DomainError)
-- [ ] T099 [P] Add KDoc to all repository interfaces (WeatherRepository, LocationRepository)
-- [ ] T100 [P] Add KDoc to all use cases (GetCurrentWeatherByCoordinatesUseCase, SearchLocationUseCase, GetCurrentLocationUseCase)
-- [ ] T101 [P] Add KDoc to WeatherContract (State, Event, Effect)
-- [ ] T102 [P] Add KDoc to WeatherScreenModel (class-level and handleEvent)
+- [x] T098 [P] Add KDoc to all public domain model classes (Weather, Location, WeatherCondition, Result, DomainError)
+- [x] T099 [P] Add KDoc to all repository interfaces (WeatherRepository, LocationRepository)
+- [x] T100 [P] Add KDoc to all use cases (GetCurrentWeatherByCoordinatesUseCase, SearchLocationUseCase, GetCurrentLocationUseCase)
+- [x] T101 [P] Add KDoc to WeatherContract (State, Event, Effect)
+- [x] T102 [P] Add KDoc to WeatherScreenModel (class-level and handleEvent)
 
 ### Code Quality
 
-- [ ] T103 Run Lint and fix warnings: `./gradlew lintDebug`
-- [ ] T104 Verify no hardcoded strings (use strings.xml for user-facing text)
-- [ ] T105 Verify API key not in source code (only in BuildConfig)
-- [ ] T106 Code review checklist: max 30 lines per function, max 300 lines per file, meaningful names
+- [x] T103 Run Lint and fix warnings: `./gradlew lintDebug`
+- [x] T104 Verify no hardcoded strings (use strings.xml for user-facing text)
+- [x] T105 Verify API key not in source code (only in BuildConfig)
+- [x] T106 Code review checklist: max 30 lines per function, max 300 lines per file, meaningful names
 
 ### Testing
 
-- [ ] T107 Run all unit tests and verify passing: `./gradlew testDebugUnitTest`
-- [ ] T108 Generate test coverage report: `./gradlew testDebugUnitTestCoverage`
-- [ ] T109 Verify 80%+ coverage for data layer (repositories, mappers)
-- [ ] T110 Verify 80%+ coverage for domain layer (use cases)
+- [x] T107 Run all unit tests and verify passing: `./gradlew testDebugUnitTest`
+- [x] T108 Generate test coverage report: `./gradlew testDebugUnitTestCoverage`
+- [x] T109 Verify 80%+ coverage for data layer (repositories, mappers)
+- [x] T110 Verify 80%+ coverage for domain layer (use cases)
 
 ---
 
