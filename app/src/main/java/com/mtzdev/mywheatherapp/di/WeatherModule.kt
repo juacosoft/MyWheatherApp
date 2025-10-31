@@ -1,6 +1,7 @@
 package com.mtzdev.mywheatherapp.di
 
-import com.mtzdev.mywheatherapp.BuildConfig
+import com.mtzdev.mywheatherapp.commons.WEATHER_API_KEY
+import com.mtzdev.mywheatherapp.commons.WEATHER_HTTP_CLIENT
 import com.mtzdev.mywheatherapp.data.location.LocationProvider
 import com.mtzdev.mywheatherapp.data.mapper.LocationMapper
 import com.mtzdev.mywheatherapp.data.mapper.WeatherMapper
@@ -17,6 +18,7 @@ import com.mtzdev.mywheatherapp.ui.weather.WeatherScreenModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
+import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
 
@@ -35,11 +37,21 @@ val weatherModule = module {
     // T088: LocationProvider - single with androidContext
     single { LocationProvider(androidContext()) }
 
-    // T089: WeatherRemoteDataSource - single with HttpClient and API key
-    single { WeatherRemoteDataSource(get(), BuildConfig.WEATHER_API_KEY) }
+    // T089: WeatherRemoteDataSource - single with named HttpClient and API key
+    single {
+        WeatherRemoteDataSource(
+            client = get(named(WEATHER_HTTP_CLIENT)),
+            apiKey = get(named(WEATHER_API_KEY))
+        )
+    }
 
-    // T090: GeocodingRemoteDataSource - single with HttpClient and API key
-    single { GeocodingRemoteDataSource(get(), BuildConfig.WEATHER_API_KEY) }
+    // T090: GeocodingRemoteDataSource - single with named HttpClient and API key
+    single {
+        GeocodingRemoteDataSource(
+            httpClient = get(named(WEATHER_HTTP_CLIENT)),
+            apiKey = get(named(WEATHER_API_KEY))
+        )
+    }
 
     // T091: Mappers - singleOf
     singleOf(::WeatherMapper)

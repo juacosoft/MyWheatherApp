@@ -681,3 +681,100 @@ Una feature se considera completada cuando:
 - [ ] QA Lead
 
 **Estado**: Draft → Pendiente de Aprobación
+
+---
+
+## 14. Actualizaciones Post-Implementación
+
+### 14.1 Fixes de Integración (2025-10-30)
+
+#### Fix 1: Inyección de Dependencias con Named Qualifiers
+**Problema Identificado**:
+- `WeatherRemoteDataSource` y `GeocodingRemoteDataSource` usaban `BuildConfig.WEATHER_API_KEY` directamente
+- No permitía soporte multi-ambiente (producción vs desarrollo)
+
+**Solución Implementada**:
+- Actualizado [WeatherModule.kt](../app/src/main/java/com/mtzdev/mywheatherapp/di/WeatherModule.kt:40-55)
+- Usa `named(WEATHER_HTTP_CLIENT)` para HttpClient
+- Usa `named(WEATHER_API_KEY)` para API key
+- Permite configuración flexible por ambiente
+
+```kotlin
+// T089: WeatherRemoteDataSource con named qualifiers
+single {
+    WeatherRemoteDataSource(
+        client = get(named(WEATHER_HTTP_CLIENT)),
+        apiKey = get(named(WEATHER_API_KEY))
+    )
+}
+
+// T090: GeocodingRemoteDataSource con named qualifiers
+single {
+    GeocodingRemoteDataSource(
+        httpClient = get(named(WEATHER_HTTP_CLIENT)),
+        apiKey = get(named(WEATHER_API_KEY))
+    )
+}
+```
+
+**Beneficios**:
+- Soporte multi-ambiente preparado para el futuro
+- Mayor flexibilidad en testing (puede inyectar mocks con named)
+- Alineado con arquitectura de la app existente
+
+#### Fix 2: Integración de WeatherScreen en HomeScreen (Reemplazo de WeatherDataScreen)
+**Problema Identificado**:
+- `WeatherScreen` (nueva pantalla GPS) no estaba integrada en `HomeScreen`
+- La pantalla antigua `WeatherDataScreen` debía ser reemplazada por la nueva implementación
+- No era accesible desde la navegación principal
+
+**Solución Implementada**:
+- Removido import de `WeatherDataScreen` en [HomeScreen.kt](../app/src/main/java/com/mtzdev/mywheatherapp/ui/screen/home/HomeScreen.kt:31)
+- Reemplazado `WeatherDataScreen` por `WeatherTab.create()` como tab inicial en TabNavigator (línea 45)
+- Actualizado `NavigationBar` para mostrar solo 2 tabs: `WeatherTab` (clima GPS) y `WeatherDataHourlyScreen` (líneas 62-64)
+- Respeta paddings del Scaffold existente
+
+**Antes**:
+```kotlin
+TabNavigator(WeatherDataScreen(state.geoData, paddingState)){
+    ...
+    bottomBar = {
+        NavigationBar {
+            TabNavigationItem(WeatherDataScreen(state.geoData, paddingState))
+            TabNavigationItem(WeatherDataHourlyScreen(paddingState))
+            TabNavigationItem(WeatherTab.create())
+        }
+    }
+}
+```
+
+**Después**:
+```kotlin
+TabNavigator(WeatherTab.create()){
+    ...
+    bottomBar = {
+        NavigationBar {
+            TabNavigationItem(WeatherTab.create())
+            TabNavigationItem(WeatherDataHourlyScreen(paddingState))
+        }
+    }
+}
+```
+
+**Beneficios**:
+- Navegación simplificada con 2 tabs en lugar de 3
+- `WeatherScreen` reemplaza completamente a `WeatherDataScreen` con funcionalidad GPS mejorada
+- Mantiene consistencia con tabs existentes
+- Usa sistema de paddings existente del Scaffold
+- Tab principal ahora es la pantalla GPS con búsqueda manual integrada
+
+#### Tareas Nuevas Generadas
+- **T111**: Actualizar DI de WeatherRemoteDataSource con named qualifiers
+- **T112**: Actualizar DI de GeocodingRemoteDataSource con named qualifiers
+- **T113**: Reemplazar WeatherDataScreen por WeatherScreen en HomeScreen
+- **T114**: Documentar fixes en spec.md
+
+**Build Status**: ✅ Compilación exitosa
+**Cambios Mínimos**: ✅ Solo modificaciones necesarias
+**PRD Mantenido**: ✅ Sin cambios en requisitos originales
+**Constitución Respetada**: ✅ Sigue estándares técnicos

@@ -1,5 +1,6 @@
 package com.mtzdev.mywheatherapp.ui.weather.navigation
 
+import androidx.compose.foundation.layout.PaddingValues
 import com.mtzdev.mywheatherapp.ui.weather.WeatherScreen
 
 /**
@@ -15,5 +16,5 @@ object WeatherTab {
      *
      * @return WeatherScreen instance ready for TabNavigator
      */
-    fun create() = WeatherScreen()
+    fun create(padding: PaddingValues) = WeatherScreen(padding)
 }

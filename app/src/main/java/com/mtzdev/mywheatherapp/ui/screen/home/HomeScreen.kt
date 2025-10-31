@@ -28,7 +28,7 @@ import com.mtzdev.mywheatherapp.ui.components.TopBarComponent
 import com.mtzdev.mywheatherapp.ui.screen.hourly.WeatherDataHourlyScreen
 import com.mtzdev.mywheatherapp.ui.screen.notification.NotificationScreen
 import com.mtzdev.mywheatherapp.ui.screen.settings.SettingsScreen
-import com.mtzdev.mywheatherapp.ui.screen.weatherdata.WeatherDataScreen
+import com.mtzdev.mywheatherapp.ui.weather.navigation.WeatherTab
 
 class HomeScreen: Screen {
 
@@ -42,7 +42,7 @@ class HomeScreen: Screen {
         }
         HandleEffects(screenModel)
         if (!state.loadingGeo){
-            TabNavigator(WeatherDataScreen(state.geoData, paddingState)){
+            TabNavigator(WeatherTab.create(paddingState)){
                 Scaffold(
                     topBar = {
                         val name = state.geoData.localNames?.es ?: state.geoData.name
@@ -59,7 +59,7 @@ class HomeScreen: Screen {
                     },
                     bottomBar = {
                         NavigationBar {
-                            TabNavigationItem(WeatherDataScreen(state.geoData, paddingState))
+                            TabNavigationItem(WeatherTab.create(paddingState))
                             TabNavigationItem(WeatherDataHourlyScreen(paddingState))
                         }
                     }
