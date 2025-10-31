@@ -82,6 +82,8 @@ dependencies {
     implementation(libs.ktor.serialization)
     implementation(libs.loggin.client)
 
+    // Play Services
+    implementation(libs.play.services.location)
 
     testImplementation(libs.junit)
     testImplementation(libs.koin.test)

@@ -11,6 +11,7 @@ composeBom = "2024.09.00"
 koin = "4.1.0"
 voyager = "1.1.0-beta02"
 ktor = "3.3.0"
+playServicesLocation = "21.3.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -52,6 +53,9 @@ ktor-contentnegociation = { module = "io.ktor:ktor-client-content-negotiation", 
 ktor-loggin = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 loggin-client = { module = "org.slf4j:slf4j-android", version = "1.7.36" }
 ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+
+# Play Services
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 
 
 [plugins]

@@ -3,15 +3,15 @@
 ## 1. Project Setup & Configuration
 
 ### 1.1 Dependencies & Permissions
-- [ ] Agregar versión de Play Services Location en `gradle/libs.versions.toml`
+- [x] Agregar versión de Play Services Location en `gradle/libs.versions.toml`
   - Añadir: `playServicesLocation = "21.3.0"` en `[versions]`
   - Añadir: `play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }` en `[libraries]`
-- [ ] Agregar dependencia en `app/build.gradle.kts`
+- [x] Agregar dependencia en `app/build.gradle.kts`
   - Añadir: `implementation(libs.play.services.location)` en `dependencies`
-- [ ] Agregar permisos en `AndroidManifest.xml`
+- [x] Agregar permisos en `AndroidManifest.xml`
   - `<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />`
   - `<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />`
-- [ ] Sync Gradle y verificar que build funciona sin errores
+- [x] Sync Gradle y verificar que build funciona sin errores
 
 ## 2. Domain Layer Implementation
 
