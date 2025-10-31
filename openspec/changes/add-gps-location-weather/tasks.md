@@ -48,11 +48,11 @@
 ## 3. Data Layer Implementation
 
 ### 3.1 Location Data Source Interface
-- [ ] Crear `data/local/LocationDataSource.kt` (interface)
+- [x] Crear `data/LocationDataSource.kt` (interface)
   - `suspend fun getCurrentLocation(): LocationResult`
 
 ### 3.2 Location Data Source Implementation
-- [ ] Crear `data/local/LocationDataSourceLocal.kt`
+- [x] Crear `data/local/LocationDataSourceLocal.kt`
   - Constructor: Inyectar `Context` y `FusedLocationProviderClient`
   - Implementar `getCurrentLocation()`:
     - Verificar permisos usando `ContextCompat.checkSelfPermission`
@@ -63,28 +63,27 @@
     - Si no hay lastLocation, usar `getCurrentLocation()` con timeout de 10 segundos
     - Convertir `android.location.Location` a `LocationEntity`
     - Manejar excepciones: `SecurityException`, timeout, etc.
-  - Helper function: `checkLocationSettings()` - verificar si GPS habilitado
-  - Helper function: `hasLocationPermission()` - verificar permisos
+  - Helper functions: `isGpsEnabled()`, `isPlayServicesAvailable()`, `hasLocationPermission()`
+  - Extension function: `android.location.Location.toLocationEntity()`
 
 ### 3.3 Location Repository Implementation
-- [ ] Crear `data/repository/LocationRepositoryData.kt`
+- [x] Crear `data/repository/LocationRepositoryData.kt`
   - Constructor: Inyectar `LocationDataSource`
   - Implementar `getCurrentLocation()` delegando al DataSource
 
 ## 4. Common/Utility Layer
 
 ### 4.1 Permission Manager
-- [ ] Crear `commons/PermissionManager.kt`
+- [x] Crear `commons/PermissionManager.kt`
   - Constructor: Inyectar `Context` (Application context)
   - `fun hasLocationPermission(): Boolean` - Verificar si permiso está otorgado
   - `fun shouldShowRationale(activity: Activity): Boolean` - Verificar si mostrar rationale
   - `fun isPermissionPermanentlyDenied(activity: Activity): Boolean` - Verificar "never ask again"
-  - Helper para generar intents a app settings
+  - `fun createAppSettingsIntent(): Intent` - Intent para abrir configuración de app
 
 ### 4.2 Extensions
-- [ ] Crear `commons/LocationExtensions.kt` (opcional)
+- [x] Crear `commons/LocationExtensions.kt`
   - Extension: `Context.hasLocationPermission(): Boolean`
-  - Extension: `Activity.openAppSettings()` - Abrir configuración de app
 
 ## 5. Dependency Injection (Koin Modules)
 
