@@ -169,7 +169,7 @@
     - `data class ShowLocationError(val message: String) : Effect`
 
 ### 7.2 Home ScreenModel Updates
-- [ ] Modificar `ui/screen/home/HomeScreenModel.kt`
+- [x] Modificar `ui/screen/home/HomeScreenModel.kt`
   - Constructor: Inyectar:
     - `GetCurrentLocationUseCase`
     - `GetWeatherGeoDataUseCase` (ya existe)
