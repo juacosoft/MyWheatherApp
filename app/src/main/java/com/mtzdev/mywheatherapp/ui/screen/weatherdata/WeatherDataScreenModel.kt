@@ -28,7 +28,7 @@ class WeatherDataScreenModel(
                     mutableState.value = mutableState.value.copy(
                         weatherData = result.data,
                         loadingWeather = false,
-                        colors = if (cloudsPercent < 40) WeatherColors.SUNNY else WeatherColors.CLOUDY
+                        colors = if (cloudsPercent > 40) WeatherColors.SUNNY else WeatherColors.CLOUDY
                     )
                 }
                 is WeatherDataResult.Error -> {
