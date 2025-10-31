@@ -200,7 +200,7 @@
     - Si es PermissionDenied permanente, enviar Effect.OpenAppSettings
 
 ### 7.3 Home Screen UI Updates
-- [ ] Modificar `ui/screen/home/HomeScreen.kt`
+- [x] Modificar `ui/screen/home/HomeScreen.kt`
   - Remover LaunchedEffect de "Bogotá"
   - Agregar permission launcher: `rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions())`
   - Agregar effect collector:
