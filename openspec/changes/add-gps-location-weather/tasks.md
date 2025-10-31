@@ -16,30 +16,30 @@
 ## 2. Domain Layer Implementation
 
 ### 2.1 Location Entity
-- [ ] Crear `domain/entity/LocationEntity.kt`
-  - Data class con: `latitude: Double`, `longitude: Double`, `timestamp: Long`
+- [x] Crear `domain/entity/LocationEntity.kt`
+  - Data class con: `latitude: Double`, `longitude: Double`, `timestamp: Long`, `accuracy: Float?`
   - KDoc explicando el propósito de la entity
 
 ### 2.2 Location Result
-- [ ] Crear `domain/LocationResult.kt` (sealed interface)
+- [x] Crear `domain/LocationResult.kt` (sealed class)
   - `data class Success(val location: LocationEntity) : LocationResult`
   - `data class Error(val exception: LocationException) : LocationResult`
 
 ### 2.3 Location Exception
-- [ ] Crear `domain/LocationException.kt` (sealed class hereda de Exception)
-  - `object PermissionDenied : LocationException("Permiso de ubicación denegado")`
-  - `object GpsDisabled : LocationException("GPS desactivado en dispositivo")`
-  - `object Timeout : LocationException("Timeout al obtener ubicación")`
-  - `object PlayServicesUnavailable : LocationException("Google Play Services no disponible")`
-  - `data class Unknown(val message: String) : LocationException(message)`
+- [x] Crear `domain/LocationException.kt` (sealed class hereda de Exception)
+  - `data object PermissionDenied : LocationException("Permiso de ubicación denegado")`
+  - `data object GpsDisabled : LocationException("GPS desactivado en dispositivo")`
+  - `data object Timeout : LocationException("Timeout al obtener ubicación")`
+  - `data object PlayServicesUnavailable : LocationException("Google Play Services no disponible")`
+  - `data class Unknown(override val message: String) : LocationException(message)`
 
 ### 2.4 Location Repository Interface
-- [ ] Crear `domain/repository/LocationRepository.kt` (interface)
+- [x] Crear `domain/repository/LocationRepository.kt` (interface)
   - `suspend fun getCurrentLocation(): LocationResult`
   - KDoc explicando contrato esperado
 
 ### 2.5 Get Current Location UseCase
-- [ ] Crear `domain/usecase/GetCurrentLocationUseCase.kt`
+- [x] Crear `domain/usecase/GetCurrentLocationUseCase.kt`
   - Constructor: Inyectar `LocationRepository`
   - `operator suspend fun invoke(): LocationResult`
   - Delegar llamada al repository
