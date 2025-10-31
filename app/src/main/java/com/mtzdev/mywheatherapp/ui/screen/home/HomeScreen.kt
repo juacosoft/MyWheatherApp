@@ -2,6 +2,7 @@ package com.mtzdev.mywheatherapp.ui.screen.home
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Icon
@@ -15,6 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
@@ -28,6 +30,7 @@ import com.mtzdev.mywheatherapp.ui.components.TopBarComponent
 import com.mtzdev.mywheatherapp.ui.screen.hourly.WeatherDataHourlyScreen
 import com.mtzdev.mywheatherapp.ui.screen.notification.NotificationScreen
 import com.mtzdev.mywheatherapp.ui.screen.settings.SettingsScreen
+import com.mtzdev.mywheatherapp.ui.weather.navigation.WeatherHourlyTab
 import com.mtzdev.mywheatherapp.ui.weather.navigation.WeatherTab
 
 class HomeScreen: Screen {
@@ -42,7 +45,7 @@ class HomeScreen: Screen {
         }
         HandleEffects(screenModel)
         if (!state.loadingGeo){
-            TabNavigator(WeatherTab.create(paddingState)){
+            TabNavigator(WeatherTab.create(Modifier.padding(paddingState))){
                 Scaffold(
                     topBar = {
                         val name = state.geoData.localNames?.es ?: state.geoData.name
@@ -59,8 +62,8 @@ class HomeScreen: Screen {
                     },
                     bottomBar = {
                         NavigationBar {
-                            TabNavigationItem(WeatherTab.create(paddingState))
-                            TabNavigationItem(WeatherDataHourlyScreen(paddingState))
+                            TabNavigationItem(WeatherTab.create(Modifier.padding(paddingState)))
+                            TabNavigationItem(WeatherHourlyTab.create(Modifier.padding(paddingState)))
                         }
                     }
                 ) { paddingValues ->

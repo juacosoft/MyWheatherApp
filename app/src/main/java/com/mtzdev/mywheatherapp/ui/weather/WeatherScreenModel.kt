@@ -1,5 +1,6 @@
 package com.mtzdev.mywheatherapp.ui.weather
 
+import android.util.Log
 import cafe.adriel.voyager.core.model.screenModelScope
 import com.mtzdev.mywheatherapp.commons.MVIBaseScreenMode
 import com.mtzdev.mywheatherapp.domain.model.DomainError
@@ -102,6 +103,7 @@ class WeatherScreenModel(
 
                     is Result.Error -> {
                         handleLocationError(locationResult.error)
+                        Log.d("handleLocationError", "Error:: ${locationResult.error}")
                         lastFailedAction = { handleAutoDetection() }
                     }
                 }

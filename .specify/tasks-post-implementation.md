@@ -197,6 +197,221 @@ Incluye:
 
 ---
 
+## T115: Actualizar WeatherTab para soportar Modifier
+
+**Estado**: ✅ COMPLETADO (Manual)
+**Prioridad**: Media
+**Estimación**: 5 minutos
+
+### Descripción
+Actualizar `WeatherTab.create()` para aceptar `Modifier` como parámetro, permitiendo control externo de paddings desde HomeScreen.
+
+### Cambios Realizados
+**Archivo**: `app/src/main/java/com/mtzdev/mywheatherapp/ui/weather/navigation/WeatherTab.kt:19`
+
+**Antes**:
+```kotlin
+fun create() = WeatherScreen()
+```
+
+**Después**:
+```kotlin
+fun create(modifier: Modifier) = WeatherScreen(modifier)
+```
+
+### Beneficios
+- Permite aplicar paddings desde HomeScreen
+- API más flexible para futuras customizaciones
+- Consistencia con patrón factory
+
+---
+
+## T116: Crear WeatherHourlyTab factory object
+
+**Estado**: ✅ COMPLETADO (Manual)
+**Prioridad**: Media
+**Estimación**: 10 minutos
+
+### Descripción
+Crear nuevo objeto factory `WeatherHourlyTab` para encapsular la creación de `WeatherDataHourlyScreen` y mantener consistencia con `WeatherTab`.
+
+### Archivo Creado
+**Path**: `app/src/main/java/com/mtzdev/mywheatherapp/ui/weather/navigation/WeatherHourlyTab.kt`
+
+**Contenido**:
+```kotlin
+package com.mtzdev.mywheatherapp.ui.weather.navigation
+
+import androidx.compose.ui.Modifier
+import com.mtzdev.mywheatherapp.ui.screen.hourly.WeatherDataHourlyScreen
+
+object WeatherHourlyTab {
+    fun create(modifier: Modifier) = WeatherDataHourlyScreen(modifier)
+}
+```
+
+### Beneficios
+- Patrón factory unificado entre todas las tabs
+- Encapsulación de creación de componentes
+- Facilita cambios futuros
+
+---
+
+## T117: Actualizar WeatherDataHourlyScreen a Tab completo
+
+**Estado**: ✅ COMPLETADO (Manual)
+**Prioridad**: Alta
+**Estimación**: 15 minutos
+
+### Descripción
+Actualizar `WeatherDataHourlyScreen` para implementar correctamente la interfaz `Tab` de Voyager con `TabOptions` completos.
+
+### Cambios Realizados
+**Archivo**: `app/src/main/java/com/mtzdev/mywheatherapp/ui/screen/hourly/WeatherDataHourlyScreen.kt`
+
+#### 1. Constructor Actualizado (línea 14)
+**Antes**:
+```kotlin
+class WeatherDataHourlyScreen(
+    private val paddingValues: PaddingValues
+): Tab
+```
+
+**Después**:
+```kotlin
+class WeatherDataHourlyScreen(
+    private val modifier: Modifier = Modifier
+): Tab
+```
+
+#### 2. TabOptions Implementado (líneas 16-28)
+```kotlin
+override val options: TabOptions
+    @Composable
+    get() {
+        val title = "Hourly"
+        val icon = rememberVectorPainter(Icons.Default.Info)
+        return remember {
+            TabOptions(
+                index = 1u,
+                title = title,
+                icon = icon
+            )
+        }
+    }
+```
+
+#### 3. Content Actualizado (línea 32)
+```kotlin
+@Composable
+override fun Content() {
+    Text("Hourly", modifier = modifier)
+}
+```
+
+### Beneficios
+- Implementación completa de Tab interface
+- Usa `Modifier` en lugar de `PaddingValues` (más flexible)
+- Tiene icon y title definidos en TabOptions
+
+---
+
+## T118: Aplicar paddings consistentes en HomeScreen
+
+**Estado**: ✅ COMPLETADO (Manual)
+**Prioridad**: Alta
+**Estimación**: 10 minutos
+
+### Descripción
+Actualizar `HomeScreen` para aplicar paddings consistentemente a todas las tabs usando el patrón Modifier.
+
+### Cambios Realizados
+**Archivo**: `app/src/main/java/com/mtzdev/mywheatherapp/ui/screen/home/HomeScreen.kt`
+
+#### 1. Import Agregado (línea 33)
+```kotlin
+import com.mtzdev.mywheatherapp.ui.weather.navigation.WeatherHourlyTab
+```
+
+#### 2. TabNavigator Inicial (línea 48)
+**Antes**:
+```kotlin
+TabNavigator(WeatherTab.create()){
+```
+
+**Después**:
+```kotlin
+TabNavigator(WeatherTab.create(Modifier.padding(paddingState))){
+```
+
+#### 3. NavigationBar Tabs (líneas 65-66)
+**Antes**:
+```kotlin
+TabNavigationItem(WeatherTab.create())
+TabNavigationItem(WeatherDataHourlyScreen(paddingState))
+```
+
+**Después**:
+```kotlin
+TabNavigationItem(WeatherTab.create(Modifier.padding(paddingState)))
+TabNavigationItem(WeatherHourlyTab.create(Modifier.padding(paddingState)))
+```
+
+### Beneficios
+- Paddings consistentes en todas las tabs
+- Control centralizado desde HomeScreen
+- Mejor UX con spacing uniforme
+
+---
+
+## T119: Actualizar WeatherScreen para recibir Modifier
+
+**Estado**: ✅ COMPLETADO (Manual)
+**Prioridad**: Media
+**Estimación**: 10 minutos
+
+### Descripción
+Actualizar `WeatherScreen` constructor y Scaffold para aceptar y aplicar `Modifier` externo.
+
+### Cambios Realizados
+**Archivo**: `app/src/main/java/com/mtzdev/mywheatherapp/ui/weather/WeatherScreen.kt`
+
+#### 1. Constructor (líneas 56-58)
+**Antes**:
+```kotlin
+class WeatherScreen() : Tab {
+```
+
+**Después**:
+```kotlin
+class WeatherScreen(
+    private val modifier: Modifier = Modifier
+) : Tab {
+```
+
+#### 2. Scaffold con Modifier (línea 111-113)
+**Antes**:
+```kotlin
+Scaffold(
+    snackbarHost = { SnackbarHost(snackbarHostState) }
+) { paddingValues ->
+```
+
+**Después**:
+```kotlin
+Scaffold(
+    modifier = modifier,
+    snackbarHost = { SnackbarHost(snackbarHostState) }
+) { paddingValues ->
+```
+
+### Beneficios
+- Permite control de paddings desde HomeScreen
+- Mejor encapsulación
+- API consistente con otras tabs
+
+---
+
 ## Resumen de Tareas
 
 | Tarea | Descripción | Estado | Tiempo |
@@ -205,8 +420,13 @@ Incluye:
 | T112 | Fix DI GeocodingRemoteDataSource | ✅ COMPLETADO | 10 min |
 | T113 | Reemplazar WeatherDataScreen por WeatherScreen | ✅ COMPLETADO | 15 min |
 | T114 | Documentar fixes en spec.md | ✅ COMPLETADO | 20 min |
+| T115 | Actualizar WeatherTab para Modifier | ✅ COMPLETADO | 5 min |
+| T116 | Crear WeatherHourlyTab factory | ✅ COMPLETADO | 10 min |
+| T117 | Actualizar WeatherDataHourlyScreen a Tab | ✅ COMPLETADO | 15 min |
+| T118 | Aplicar paddings en HomeScreen | ✅ COMPLETADO | 10 min |
+| T119 | Actualizar WeatherScreen para Modifier | ✅ COMPLETADO | 10 min |
 
-**Total**: 4 tareas | 100% completadas | ~55 minutos
+**Total**: 9 tareas | 100% completadas | ~1 hora 45 minutos
 
 ---
 

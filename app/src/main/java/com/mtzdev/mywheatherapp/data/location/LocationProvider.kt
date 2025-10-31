@@ -90,6 +90,7 @@ class LocationProvider(context: Context) {
         exception: Exception,
         continuation: kotlin.coroutines.Continuation<Location>
     ) {
+        exception.printStackTrace()
         continuation.resumeWithException(
             LocationException.Unavailable(
                 "Failed to get location: ${exception.message}",

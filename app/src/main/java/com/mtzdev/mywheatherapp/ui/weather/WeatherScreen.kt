@@ -54,7 +54,7 @@ import com.mtzdev.mywheatherapp.ui.weather.components.WeatherDisplay
  * - MVI state management
  */
 class WeatherScreen(
-    private val paddingValues: PaddingValues
+    private val modifier: Modifier = Modifier
 ) : Tab {
 
     @OptIn(ExperimentalPermissionsApi::class)
@@ -109,7 +109,7 @@ class WeatherScreen(
         }
 
         Scaffold(
-            modifier = Modifier.padding(paddingValues),
+            modifier = modifier,
             snackbarHost = { SnackbarHost(snackbarHostState) }
         ) { paddingValues ->
             WeatherContent(
