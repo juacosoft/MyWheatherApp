@@ -132,26 +132,26 @@ class HomeScreenModel(
 
     /**
      * Maneja el éxito de obtención de ubicación GPS.
-     * Usa las coordenadas para obtener datos de geocoding.
+     * Crea WeatherGeoDataEntity con las coordenadas GPS y actualiza el estado.
+     * Esto permite que la UI navegue automáticamente a WeatherDataScreen.
      */
-    private fun handleGpsLocationSuccess(location: LocationEntity) = screenModelScope.launch {
-        // Por ahora, simplemente guardamos las coordenadas
-        // En una implementación completa, buscaríamos el nombre de la ciudad por coordenadas
-        // o directamente pasaríamos las coordenadas al weather data
-        updateState(
-            mutableState.value.copy(
-                isLoadingGpsLocation = false,
-                locationError = null
-            )
+    private fun handleGpsLocationSuccess(location: LocationEntity) {
+        // Crear WeatherGeoDataEntity con coordenadas GPS
+        val geoData = com.mtzdev.mywheatherapp.domain.entity.WeatherGeoDataEntity(
+            name = "Mi ubicación", // Nombre genérico para ubicación GPS
+            localNames = null,
+            lat = location.latitude,
+            lon = location.longitude
         )
 
-        // TODO: En sección 7.3 navegaremos a WeatherDataScreen con estas coordenadas
-        // Por ahora solo mostramos un mensaje de éxito temporal
-        sendEffect {
-            HomeContract.Effect.ShowLocationError(
-                "Ubicación obtenida: ${location.latitude}, ${location.longitude}"
+        updateState(
+            mutableState.value.copy(
+                geoData = geoData,
+                isLoadingGpsLocation = false,
+                locationError = null,
+                searchQuery = "" // Limpiar búsqueda
             )
-        }
+        )
     }
 
     /**

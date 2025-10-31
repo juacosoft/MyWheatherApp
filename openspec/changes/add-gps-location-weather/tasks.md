@@ -192,8 +192,10 @@
     - `OnPermissionDialogDeny`: Cerrar dialog, mantener búsqueda manual
     - `OnPermissionGranted`: Llamar `GetCurrentLocationUseCase`
     - `OnPermissionDenied`: Mostrar mensaje, ofrecer manual search
-  - Helper function: `handleGpsLocation(location: LocationEntity)`
-    - Llamar `GetWeatherDataUseCase` con coordenadas
+  - Helper function: `handleGpsLocationSuccess(location: LocationEntity)`
+    - Crear `WeatherGeoDataEntity` con coordenadas GPS (lat, lon)
+    - Usar nombre genérico "Mi ubicación"
+    - Actualizar estado con geoData para navegar a WeatherDataScreen
   - Helper function: `handleLocationError(error: LocationException)`
     - Mapear exception a mensaje user-friendly
     - Actualizar estado con error

@@ -117,7 +117,7 @@ class HomeScreen: Screen {
         // Main content
         if (state.geoData != null) {
             // Ya tenemos ubicación seleccionada, mostrar tabs de clima
-            TabNavigator(WeatherDataScreen(state.geoData!!, paddingState)) {
+            TabNavigator(WeatherDataScreen(state.geoData!!, Modifier.padding(paddingState))) {
                 Scaffold(
                     topBar = {
                         val name = state.geoData?.localNames?.es ?: state.geoData?.name
@@ -134,7 +134,7 @@ class HomeScreen: Screen {
                     },
                     bottomBar = {
                         NavigationBar {
-                            TabNavigationItem(WeatherDataScreen(state.geoData!!, paddingState))
+                            TabNavigationItem(WeatherDataScreen(state.geoData!!, Modifier.padding(paddingState)))
                             TabNavigationItem(WeatherDataHourlyScreen(paddingState))
                         }
                     },

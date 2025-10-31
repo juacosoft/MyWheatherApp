@@ -29,7 +29,6 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
@@ -39,7 +38,7 @@ import com.mtzdev.mywheatherapp.ui.components.LoadingComponent
 
 class WeatherDataScreen(
     private val weatherGeoDataEntity: WeatherGeoDataEntity,
-    private val paddingValues: PaddingValues
+    private val modifier: Modifier = Modifier
 ): Tab {
 
     @Composable
@@ -49,9 +48,8 @@ class WeatherDataScreen(
         LaunchedEffect(Unit) {
             screenModel.setEvent(WeatherDataContract.Event.Init(weatherGeoDataEntity))
         }
-        Surface(modifier = Modifier
+        Surface(modifier = modifier
             .fillMaxSize()
-            .padding(paddingValues)
         ) {
             Box(
                 modifier = Modifier

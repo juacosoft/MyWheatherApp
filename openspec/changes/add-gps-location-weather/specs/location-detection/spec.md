@@ -11,6 +11,9 @@ El sistema SHALL obtener la ubicación geográfica actual del dispositivo usando
 - **WHEN** el sistema solicita la ubicación actual
 - **THEN** el sistema MUST retornar coordenadas (latitud, longitud) con precisión de al menos 100 metros
 - **AND** la operación MUST completarse en menos de 10 segundos
+- **AND** el sistema MUST crear un WeatherGeoDataEntity con las coordenadas obtenidas
+- **AND** el sistema MUST usar el nombre "Mi ubicación" para identificar la ubicación GPS
+- **AND** el sistema MUST navegar automáticamente a la pantalla de clima con esas coordenadas
 
 #### Scenario: GPS disabled on device
 - **GIVEN** el usuario ha otorgado permisos de ubicación
