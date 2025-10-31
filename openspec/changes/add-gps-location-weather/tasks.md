@@ -88,23 +88,23 @@
 ## 5. Dependency Injection (Koin Modules)
 
 ### 5.1 Data Module Updates
-- [ ] Modificar `di/DataModule.kt`
+- [x] Modificar `di/DataModule.kt`
   - Agregar: `single<FusedLocationProviderClient> { LocationServices.getFusedLocationProviderClient(androidContext()) }`
-  - Agregar: `single<LocationDataSource> { LocationDataSourceLocal(get(), get()) }`
-  - Agregar: `single<LocationRepository> { LocationRepositoryData(get()) }`
+  - Agregar: `singleOf(::LocationDataSourceLocal) bind LocationDataSource::class`
+  - Agregar: `singleOf(::LocationRepositoryData) bind LocationRepository::class`
 
 ### 5.2 Domain Module Updates
-- [ ] Modificar `di/ViewModelModule.kt` (o crear DomainModule si no existe)
-  - Agregar: `factory { GetCurrentLocationUseCase(get()) }`
+- [x] Modificar `di/ViewModelModule.kt`
+  - Agregar: `factoryOf(::GetCurrentLocationUseCase)`
 
 ### 5.3 App Module Updates
-- [ ] Modificar `di/AppModule.kt`
-  - Agregar: `single { PermissionManager(androidContext()) }`
+- [x] Modificar `di/AppModule.kt`
+  - Agregar: `singleOf(::PermissionManager)`
 
 ## 6. UI Layer - Components
 
 ### 6.1 Location Permission Dialog
-- [ ] Crear `ui/components/LocationPermissionDialog.kt`
+- [x] Crear `ui/components/LocationPermissionDialog.kt`
   - Composable function `LocationPermissionDialog`
   - Parámetros:
     - `onAllowClick: () -> Unit`
@@ -116,7 +116,7 @@
   - Botones: "Permitir" y "Usar búsqueda manual"
 
 ### 6.2 Location Search Component
-- [ ] Crear `ui/components/LocationSearchComponent.kt`
+- [x] Crear `ui/components/LocationSearchComponent.kt`
   - Composable function `LocationSearchInput`
   - Parámetros:
     - `searchQuery: String`
@@ -131,7 +131,7 @@
   - Keyboard actions: `ImeAction.Search`
 
 ### 6.3 GPS Location Button Component
-- [ ] Crear `ui/components/GpsLocationButton.kt`
+- [x] Crear `ui/components/GpsLocationButton.kt`
   - Composable function `GpsLocationButton`
   - Parámetros:
     - `onClick: () -> Unit`
