@@ -144,7 +144,7 @@
 ## 7. UI Layer - Home Screen Updates
 
 ### 7.1 Home Contract Updates
-- [ ] Modificar `ui/screen/home/HomeContract.kt`
+- [x] Modificar `ui/screen/home/HomeContract.kt`
   - Agregar a `UiState`:
     - `isLoadingGpsLocation: Boolean = false`
     - `isLoadingCitySearch: Boolean = false`
@@ -152,6 +152,7 @@
     - `searchQuery: String = ""`
     - `showPermissionDialog: Boolean = false`
     - `showPermissionDeniedMessage: Boolean = false`
+    - Cambiar `geoData` de non-null a nullable para permitir estado inicial sin ubicación
   - Agregar a `UiEvent`:
     - `data object OnRequestGpsLocation : UiEvent`
     - `data class OnSearchCity(val cityName: String) : UiEvent`
@@ -161,10 +162,11 @@
     - `data object OnPermissionDialogDismiss : UiEvent`
     - `data object OnPermissionGranted : UiEvent`
     - `data object OnPermissionDenied : UiEvent`
+    - `data object OnClearLocationError : UiEvent`
   - Agregar a `Effect`:
     - `data object RequestLocationPermission : Effect`
     - `data object OpenAppSettings : Effect`
-    - `data class ShowError(val message: String) : Effect`
+    - `data class ShowLocationError(val message: String) : Effect`
 
 ### 7.2 Home ScreenModel Updates
 - [ ] Modificar `ui/screen/home/HomeScreenModel.kt`
